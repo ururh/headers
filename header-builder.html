@@ -1,0 +1,1871 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Header Lab — конструктор хедерів</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #f3f5f9;
+        color: #182237;
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: 32px;
+      }
+
+      .description {
+        color: #748097;
+        margin-bottom: 30px;
+      }
+
+      .builder {
+        background: #fff;
+        border: 1px solid #e2e7f0;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 15px 40px #17243d0d;
+      }
+
+      .builder-title {
+        padding: 20px;
+        border-bottom: 1px solid #e2e7f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .builder-title strong {
+        font-size: 17px;
+      }
+
+      .counter {
+        color: #6877dc;
+        font-weight: 700;
+      }
+
+      .preview {
+        padding: 35px 20px;
+        background: #f5f7fb;
+        min-height: 210px;
+        display: flex;
+        align-items: center;
+      }
+
+      .header-section {
+        display: none;
+        width: 100%;
+      }
+
+      .header-section.active {
+        display: block;
+      }
+
+      .header-section [] {
+        cursor: text;
+        outline: none;
+      }
+
+      .header-section []:focus {
+        outline: 2px dashed #7a89ed;
+        outline-offset: 4px;
+        border-radius: 3px;
+      }
+
+      .navigation {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        border-top: 1px solid #e2e7f0;
+      }
+
+      .arrow {
+        width: 45px;
+        height: 45px;
+        border: 1px solid #dbe2ef;
+        background: white;
+        border-radius: 12px;
+        font-size: 25px;
+        cursor: pointer;
+      }
+
+      .arrow:hover {
+        background: #edf0ff;
+      }
+
+      .header-info {
+        text-align: center;
+      }
+
+      .header-info strong {
+        display: block;
+        font-size: 16px;
+      }
+
+      .header-info span {
+        color: #8590a3;
+        font-size: 12px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .btn {
+        padding: 13px 18px;
+        border: 1px solid #dce3ef;
+        background: white;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 700;
+        color: #26344b;
+      }
+
+      .btn:hover {
+        border-color: #6575e8;
+      }
+
+      .btn.primary {
+        background: #5263df;
+        color: white;
+        border-color: #5263df;
+      }
+
+      .editor {
+        display: none;
+        margin-top: 20px;
+        background: #172033;
+        border-radius: 15px;
+        overflow: hidden;
+      }
+
+      .editor.open {
+        display: block;
+      }
+
+      .editor-top {
+        padding: 14px 18px;
+        background: #25314a;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .editor textarea {
+        width: 100%;
+        height: 380px;
+        padding: 20px;
+        background: #172033;
+        color: #e9edff;
+        border: none;
+        outline: none;
+        resize: vertical;
+        font-family: monospace;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .editor-bottom {
+        padding: 14px;
+        text-align: right;
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        background: #17243d;
+        color: white;
+        padding: 13px 20px;
+        border-radius: 10px;
+        display: none;
+        z-index: 999;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 20px 12px;
+        }
+
+        h1 {
+          font-size: 26px;
+        }
+
+        .preview {
+          padding: 20px 10px;
+        }
+
+        .actions .btn {
+          flex: 1 1 42%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="container">
+      <h1>Конструктор хедерів</h1>
+      <div class="builder">
+        <div class="builder-title">
+          <strong>Перегляд</strong>
+          <span class="counter" id="counter">01 / 06</span>
+        </div>
+
+        <div class="preview" id="preview">
+<section class="header-section active"
+            data-name="World Health Organization"
+            data-slug="Organization">
+
+<style>
+
+.who-header {
+    --who-dark: #294572;
+    --who-navy: #12346b;
+    --who-blue: #0079bf;
+    --who-orange: #f8a313;
+
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    background: #fff;
+}
+
+.who-header *,
+.who-header *::before,
+.who-header *::after {
+    box-sizing: border-box;
+}
+
+.who-header a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.who-header button {
+    font-family: inherit;
+}
+
+.who-topbar {
+    height: 46px;
+    padding: 0 32px;
+    background: var(--who-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.who-topbar__left,
+.who-topbar__right {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    height: 100%;
+}
+
+.who-topbar__right {
+    gap: 40px;
+}
+
+.who-topbar__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    height: 100%;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.who-topbar__link:hover {
+    opacity: 0.85;
+}
+
+.who-chevron {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
+    margin-left: 3px;
+    flex-shrink: 0;
+}
+
+.who-topbar__icon {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.who-topbar__icon [data-svg-icon="search"] {
+    display: block;
+    width: 21px;
+    height: 21px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    position: relative;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.who-topbar__icon [data-svg-icon="search"]::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 3px;
+    background: #fff;
+    border-radius: 3px;
+    right: -9px;
+    bottom: -5px;
+    transform: rotate(45deg);
+}
+
+.who-language [data-svg-icon="language"] {
+    display: inline-flex;
+    width: 25px;
+    height: 25px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.who-language [data-svg-icon="language"]::before {
+    content: "文";
+    font-size: 22px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.who-brand {
+    width: 100%;
+    background: #fff;
+}
+
+.who-brand__inner {
+    min-height: 143px;
+    padding: 25px 54px 25px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.who-brand__logo {
+    display: inline-flex;
+    align-items: center;
+    max-width: 230px;
+}
+
+.who-brand__logo img {
+    display: block;
+    width: 100%;
+    max-width: 205px;
+    height: auto;
+    object-fit: contain;
+}
+
+.who-donate {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    min-height: 49px;
+    padding: 0 17px;
+    border-radius: 8px;
+    background: var(--who-orange);
+    color: #111 !important;
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+}
+
+.who-donate:hover {
+    background: #e89305;
+}
+
+.who-donate__heart {
+    color: #fff;
+    font-size: 23px;
+    line-height: 1;
+}
+
+.who-nav {
+    width: 100%;
+    background: var(--who-navy);
+}
+
+.who-nav__inner {
+    display: flex;
+    align-items: stretch;
+    min-height: 52px;
+    padding: 0 16px;
+}
+
+.who-nav__home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    min-width: 70px;
+    color: #fff;
+}
+
+.who-nav__home [data-svg-icon="home"] {
+    display: block;
+    position: relative;
+    width: 25px;
+    height: 21px;
+    background: #fff;
+    clip-path: polygon(
+        50% 0,
+        100% 42%,
+        88% 42%,
+        88% 100%,
+        60% 100%,
+        60% 66%,
+        40% 66%,
+        40% 100%,
+        12% 100%,
+        12% 42%,
+        0 42%
+    );
+}
+
+.who-nav__list {
+    display: flex;
+    align-items: stretch;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.who-nav__list li {
+    display: flex;
+    align-items: stretch;
+}
+
+.who-nav__list li a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+    padding: 0 21px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.who-nav__list li a:hover {
+    background: var(--who-blue);
+}
+
+.who-nav__toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+
+.who-nav__toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+}
+
+@media (max-width: 1100px) {
+    .who-nav__list li a {
+        padding: 0 13px;
+        gap: 9px;
+        font-size: 14px;
+    }
+
+    .who-nav__home {
+        width: 55px;
+        min-width: 55px;
+    }
+}
+
+@media (max-width: 850px) {
+    .who-topbar {
+        height: 42px;
+        padding: 0 16px;
+    }
+
+    .who-topbar__left,
+    .who-topbar__right {
+        gap: 16px;
+    }
+
+    .who-topbar__link {
+        font-size: 12px;
+        gap: 7px;
+    }
+
+    .who-topbar__icon {
+        transform: scale(0.8);
+    }
+
+    .who-language [data-svg-icon="language"] {
+        display: none;
+    }
+
+    .who-brand__inner {
+        min-height: 105px;
+        padding: 20px 16px;
+    }
+
+    .who-brand__logo img {
+        max-width: 165px;
+    }
+
+    .who-donate {
+        min-height: 40px;
+        padding: 0 13px;
+        font-size: 13px;
+    }
+
+    .who-nav__inner {
+        min-height: 50px;
+        padding: 0 12px;
+        justify-content: space-between;
+        position: relative;
+    }
+
+    .who-nav__home {
+        width: 50px;
+        min-width: 50px;
+    }
+
+    .who-nav__toggle {
+        display: flex;
+        margin-left: auto;
+    }
+
+    .who-nav__list {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: var(--who-navy);
+        flex-direction: column;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .who-nav__list.is-open {
+        display: flex;
+    }
+
+    .who-nav__list li {
+        width: 100%;
+    }
+
+    .who-nav__list li a {
+        width: 100%;
+        justify-content: space-between;
+        padding: 16px 22px;
+        font-size: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+}
+
+@media (max-width: 420px) {
+    .who-topbar {
+        padding: 0 10px;
+    }
+
+    .who-topbar__left,
+    .who-topbar__right {
+        gap: 11px;
+    }
+
+    .who-topbar__link {
+        font-size: 11px;
+    }
+
+    .who-brand__logo img {
+        max-width: 145px;
+    }
+
+    .who-donate {
+        padding: 0 10px;
+        font-size: 12px;
+        gap: 7px;
+    }
+
+    .who-donate__heart {
+        font-size: 18px;
+    }
+}
+
+</style>
+
+    <header class="who-header">
+    <div class="who-topbar">
+        <div class="who-topbar__left">
+            <a href="#balloons" class="who-topbar__link">Globalno</a>
+
+            <a href="#balloons" class="who-topbar__link">
+                Regije
+                <span class="who-chevron"></span>
+            </a>
+        </div>
+        <div class="who-topbar__right">
+            <button class="who-topbar__icon" type="button" aria-label="Pretraga">
+                <span data-svg-icon="search"></span>
+            </button>
+
+            <a href="#balloons" class="who-topbar__link who-language">
+                <span data-svg-icon="language"></span>
+
+                <span>Odaberite jezik</span>
+                <span class="who-chevron"></span>
+            </a>
+        </div>
+    </div>
+    <div class="who-brand">
+        <div class="who-brand__inner">
+            <a href="#balloons" class="who-brand__logo">
+                <img src="" alt="Svjetska zdravstvena organizacija">
+            </a>
+
+            <a href="#balloons" class="who-donate">
+                <span class="who-donate__heart">♥</span>
+                Donirajte
+            </a>
+        </div>
+    </div>
+    <nav class="who-nav">
+        <div class="who-nav__inner">
+            <a href="#balloons" class="who-nav__home" aria-label="Početna">
+                <span data-svg-icon="home"></span>
+            </a>
+            <button class="who-nav__toggle" type="button" aria-label="Otvori meni" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="who-nav__list">
+                <li>
+                    <a href="#balloons">
+                        Zdravstvene teme
+                        <span class="who-chevron"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#balloons">
+                        Zemlje
+                        <span class="who-chevron"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#balloons">
+                        Vijesti
+                        <span class="who-chevron"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#balloons">
+                        Vanredne situacije
+                        <span class="who-chevron"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#balloons">
+                        Podaci
+                        <span class="who-chevron"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#balloons">
+                        O SZO-u
+                        <span class="who-chevron"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+</section>
+
+          <section
+            class="header-section"
+            data-name="Clinical Clean"
+            data-slug="clinical"
+          >
+            <style>
+              .hb-clinical {
+                font-family: Arial, sans-serif;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                background: #fff;
+                padding: 19px 28px;
+                border-bottom: 1px solid #e3eaf1;
+                color: #17334c;
+              }
+
+              .hb-clinical__brand {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                font-size: 23px;
+                font-weight: 800;
+              }
+
+              .hb-clinical__brand small {
+                display: block;
+                font-size: 10px;
+                font-weight: 500;
+                color: #8190a0;
+                margin-top: 3px;
+              }
+
+              .hb-clinical__mark {
+                background: #e5f7f1;
+                color: #159e75;
+                width: 43px;
+                height: 43px;
+                border-radius: 12px;
+                display: grid;
+                place-items: center;
+                font-size: 25px;
+              }
+
+              .hb-clinical__accent {
+                color: #159e75;
+              }
+
+              .hb-clinical__right {
+                display: flex;
+                align-items: center;
+                gap: 18px;
+              }
+
+              .hb-clinical__status {
+                font-size: 12px;
+                color: #4b6478;
+                white-space: nowrap;
+              }
+
+              .hb-clinical__status i {
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #16bd87;
+                margin-right: 4px;
+              }
+
+              .hb-clinical__button {
+                padding: 12px 16px;
+                background: #159e75;
+                color: white;
+                border-radius: 9px;
+                font-size: 12px;
+                font-weight: 700;
+                white-space: nowrap;
+              }
+
+              @media (max-width: 540px) {
+                .hb-clinical {
+                  padding: 14px;
+                  gap: 10px;
+                }
+
+                .hb-clinical__brand {
+                  font-size: 18px;
+                }
+
+                .hb-clinical__mark {
+                  width: 36px;
+                  height: 36px;
+                }
+
+                .hb-clinical__status {
+                  display: none;
+                }
+
+                .hb-clinical__button {
+                  padding: 10px;
+                  font-size: 10px;
+                }
+              }
+            </style>
+
+            <header class="hb-clinical">
+              <div class="hb-clinical__brand">
+                <span class="hb-clinical__mark">✚</span>
+                <span >
+                  Health<span class="hb-clinical__accent">Care</span>
+                  <small>Консультаційний центр</small>
+                </span>
+              </div>
+
+              <div class="hb-clinical__right">
+                <span class="hb-clinical__status">
+                  <i></i>
+                  <span >Консультант онлайн</span>
+                </span>
+                <span class="hb-clinical__button" >
+                  Безкоштовна консультація
+                </span>
+              </div>
+            </header>
+          </section>
+
+          <!-- HEADER 2 -->
+          <section
+            class="header-section"
+            data-name="Expert Profile"
+            data-slug="expert"
+          >
+            <style>
+              .hb-expert {
+                font-family: Arial, sans-serif;
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                background: linear-gradient(110deg, #f8fbff, #eaf4ff);
+                padding: 20px 26px;
+                border-bottom: 3px solid #4e91d6;
+                color: #193451;
+              }
+
+              .hb-expert__avatar {
+                height: 54px;
+                width: 54px;
+                border-radius: 50%;
+                background: #2d78b8;
+                color: white;
+                display: grid;
+                place-items: center;
+                font-weight: 800;
+                font-size: 17px;
+                flex-shrink: 0;
+                border: 3px solid white;
+              }
+
+              .hb-expert__info {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                min-width: 0;
+              }
+
+              .hb-expert__info strong {
+                font-size: 17px;
+              }
+
+              .hb-expert__info span {
+                font-size: 12px;
+                color: #627d98;
+              }
+
+              .hb-expert__online {
+                margin-left: auto;
+                white-space: nowrap;
+                border: 1px solid #b8e7d2;
+                background: #e8fff4;
+                color: #12825a;
+                border-radius: 40px;
+                padding: 9px 12px;
+                font-size: 12px;
+                font-weight: 700;
+              }
+
+              .hb-expert__pulse {
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                background: #15b778;
+                border-radius: 50%;
+                margin-right: 5px;
+              }
+
+              @media (max-width: 520px) {
+                .hb-expert {
+                  padding: 13px;
+                  gap: 9px;
+                }
+
+                .hb-expert__avatar {
+                  width: 42px;
+                  height: 42px;
+                  font-size: 13px;
+                }
+
+                .hb-expert__info strong {
+                  font-size: 13px;
+                }
+
+                .hb-expert__info span {
+                  font-size: 10px;
+                }
+
+                .hb-expert__online {
+                  font-size: 0;
+                  padding: 9px;
+                }
+
+                .hb-expert__pulse {
+                  margin: 0;
+                }
+              }
+            </style>
+
+            <header class="hb-expert">
+              <div class="hb-expert__avatar" >ДК</div>
+
+              <div class="hb-expert__info">
+                <strong >Д-р Катерина Коваль</strong>
+                <span >
+                  Консультант зі здорового способу життя
+                </span>
+              </div>
+
+              <div class="hb-expert__online">
+                <span class="hb-expert__pulse"></span>
+                <span >На зв’язку</span>
+              </div>
+            </header>
+          </section>
+
+          <!-- HEADER 3 -->
+          <section
+            class="header-section"
+            data-name="Editorial Journal"
+            data-slug="editorial"
+          >
+            <style>
+              .hb-editorial {
+                font-family: Georgia, serif;
+                background: #fffdf9;
+                color: #252c2d;
+                text-align: center;
+                border-bottom: 1px solid #d9d5cb;
+              }
+
+              .hb-editorial__top {
+                font:
+                  700 9px Arial,
+                  sans-serif;
+                letter-spacing: 3px;
+                padding: 12px;
+                background: #e9eee8;
+                color: #617267;
+              }
+
+              .hb-editorial__main {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                padding: 18px;
+              }
+
+              .hb-editorial__logo {
+                font-size: clamp(25px, 4vw, 39px);
+                font-weight: 700;
+                letter-spacing: -2px;
+              }
+
+              .hb-editorial__logo span {
+                color: #c77748;
+              }
+
+              .hb-editorial__edition {
+                position: absolute;
+                right: 25px;
+                text-align: right;
+                font:
+                  11px/1.5 Arial,
+                  sans-serif;
+                color: #8c918d;
+              }
+
+              .hb-editorial__bar {
+                border-top: 1px solid #e9e5dc;
+                padding: 12px;
+                display: flex;
+                justify-content: center;
+                gap: 35px;
+                font:
+                  700 10px Arial,
+                  sans-serif;
+                letter-spacing: 1px;
+              }
+
+              .hb-editorial__bar span {
+                color: #727b77;
+              }
+
+              @media (max-width: 520px) {
+                .hb-editorial__edition {
+                  display: none;
+                }
+
+                .hb-editorial__bar {
+                  gap: 14px;
+                  font-size: 8px;
+                }
+
+                .hb-editorial__top {
+                  letter-spacing: 1px;
+                }
+              }
+            </style>
+
+            <header class="hb-editorial">
+              <div class="hb-editorial__top" >
+                ЗДОРОВ’Я • ДОСЛІДЖЕННЯ • ДОБРОБУТ
+              </div>
+
+              <div class="hb-editorial__main">
+                <div class="hb-editorial__logo" >
+                  wellness<span>.</span>daily
+                </div>
+
+                <span class="hb-editorial__edition" >
+                  Інформаційний журнал
+                  <br />Випуск № 12
+                </span>
+              </div>
+
+              <div class="hb-editorial__bar">
+                <span >ГОЛОВНА</span>
+                <span >ЗДОРОВ’Я</span>
+                <span >СПОСІБ ЖИТТЯ</span>
+                <span >ПОРАДИ</span>
+              </div>
+            </header>
+          </section>
+
+          <!-- HEADER 4 -->
+          <section
+            class="header-section"
+            data-name="Natural Balance"
+            data-slug="nature"
+          >
+            <style>
+              .hb-nature {
+                font-family: Arial, sans-serif;
+                background: #eff6e9;
+                color: #2b5237;
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                padding: 24px 30px;
+                border-bottom: 4px solid #a1bc7d;
+              }
+
+              .hb-nature__icon {
+                font-size: 40px;
+                line-height: 1;
+                color: #648c47;
+              }
+
+              .hb-nature__name {
+                font-weight: 900;
+                font-size: 25px;
+                letter-spacing: 3px;
+              }
+
+              .hb-nature__name small {
+                display: block;
+                font-size: 10px;
+                font-weight: 500;
+                letter-spacing: 1px;
+                margin-top: 4px;
+              }
+
+              .hb-nature__line {
+                height: 42px;
+                width: 1px;
+                background: #b8c9aa;
+                margin-left: auto;
+              }
+
+              .hb-nature__text {
+                max-width: 230px;
+                color: #67806b;
+                font-size: 12px;
+                line-height: 1.5;
+              }
+
+              @media (max-width: 520px) {
+                .hb-nature {
+                  padding: 18px;
+                  gap: 9px;
+                }
+
+                .hb-nature__name {
+                  font-size: 20px;
+                }
+
+                .hb-nature__icon {
+                  font-size: 30px;
+                }
+
+                .hb-nature__line,
+                .hb-nature__text {
+                  display: none;
+                }
+              }
+            </style>
+
+            <header class="hb-nature">
+              <div class="hb-nature__icon">❋</div>
+
+              <div class="hb-nature__name" >
+                NATURA
+                <small>Здоров’я щодня</small>
+              </div>
+
+              <div class="hb-nature__line"></div>
+
+              <div class="hb-nature__text" >
+                Турбота про себе починається з маленьких кроків
+              </div>
+            </header>
+          </section>
+
+          <!-- HEADER 5 -->
+          <section
+            class="header-section"
+            data-name="Modern Gradient"
+            data-slug="modern"
+          >
+            <style>
+              .hb-modern {
+                font-family: Arial, sans-serif;
+                display: flex;
+                align-items: center;
+                gap: 18px;
+                padding: 24px 28px;
+                background: linear-gradient(
+                  110deg,
+                  #332c83,
+                  #7959ce 60%,
+                  #ac75db
+                );
+                color: white;
+              }
+
+              .hb-modern__brand {
+                font-size: 24px;
+                font-weight: 900;
+                letter-spacing: -1px;
+                white-space: nowrap;
+              }
+
+              .hb-modern__brand span {
+                font-weight: 400;
+              }
+
+              .hb-modern__symbol {
+                color: #eacbff;
+                font-size: 27px;
+                margin-right: 5px;
+              }
+
+              .hb-modern__center {
+                margin: auto;
+                font-size: 13px;
+                color: #f0e6ff;
+              }
+
+              .hb-modern__pill {
+                padding: 12px 15px;
+                border-radius: 30px;
+                background: white;
+                color: #6346a9;
+                font-size: 11px;
+                font-weight: 800;
+                white-space: nowrap;
+              }
+
+              @media (max-width: 570px) {
+                .hb-modern {
+                  padding: 17px 13px;
+                }
+
+                .hb-modern__brand {
+                  font-size: 18px;
+                }
+
+                .hb-modern__center {
+                  display: none;
+                }
+
+                .hb-modern__pill {
+                  margin-left: auto;
+                  font-size: 9px;
+                  padding: 10px;
+                }
+              }
+            </style>
+
+            <header class="hb-modern">
+              <div class="hb-modern__brand" >
+                <span class="hb-modern__symbol">✦</span>
+                VITA<span>PLUS</span>
+              </div>
+
+              <div class="hb-modern__center" >
+                Ваш простір здорових звичок
+              </div>
+
+              <div class="hb-modern__pill" >
+                ДІЗНАТИСЯ БІЛЬШЕ
+              </div>
+            </header>
+          </section>
+
+          <!-- HEADER 6 -->
+          <section
+            class="header-section"
+            data-name="Minimal Trust"
+            data-slug="minimal"
+          >
+            <style>
+              .hb-minimal {
+                font-family: Arial, sans-serif;
+                background: #192534;
+                color: white;
+                padding: 24px 28px;
+                display: flex;
+                align-items: center;
+                gap: 18px;
+              }
+
+              .hb-minimal__logo {
+                font-size: 22px;
+                font-weight: 800;
+                white-space: nowrap;
+                letter-spacing: 1px;
+              }
+
+              .hb-minimal__logo span {
+                color: #7dd5c6;
+              }
+
+              .hb-minimal__divider {
+                height: 32px;
+                width: 1px;
+                background: #47596b;
+              }
+
+              .hb-minimal__tagline {
+                font-size: 12px;
+                color: #b4c2ce;
+              }
+
+              .hb-minimal__badge {
+                margin-left: auto;
+                color: #9ee2c7;
+                border: 1px solid #416a64;
+                border-radius: 5px;
+                padding: 9px 11px;
+                font-size: 10px;
+                font-weight: 700;
+                white-space: nowrap;
+              }
+
+              @media (max-width: 570px) {
+                .hb-minimal {
+                  padding: 18px 14px;
+                  gap: 9px;
+                }
+
+                .hb-minimal__logo {
+                  font-size: 17px;
+                }
+
+                .hb-minimal__tagline,
+                .hb-minimal__divider {
+                  display: none;
+                }
+
+                .hb-minimal__badge {
+                  font-size: 9px;
+                  padding: 8px;
+                }
+              }
+            </style>
+
+            <header class="hb-minimal">
+              <div class="hb-minimal__logo" >
+                N<span>°</span> HEALTH
+              </div>
+
+              <div class="hb-minimal__divider"></div>
+
+              <div class="hb-minimal__tagline" >
+                Інформація про здоров’я без зайвого
+              </div>
+
+              <div class="hb-minimal__badge" >
+                ● ОНОВЛЕННЯ ЩОДНЯ
+              </div>
+            </header>
+          </section>
+
+          <section class="header-section" data-name="Chat Modern" data-slug="chat-modern">
+            <style>
+              #header.header {
+                --header-dark: #102e27;
+                --header-deep: #0b241e;
+                --header-green: #1d493b;
+                --header-light: #a9c8b9;
+                --header-gold: #e1c27d;
+
+                position: relative;
+                width: 100%;
+                overflow: hidden;
+                font-family: "Inter", Arial, sans-serif;
+                color: #fff;
+                background: linear-gradient(
+                  135deg,
+                  #102e27 0%,
+                  #173e32 55%,
+                  #0b241e 100%
+                );
+                border: 1px solid #315747;
+                border-radius: 18px;
+                box-shadow: 0 12px 35px rgba(5, 35, 25, 0.2);
+              }
+
+              #header.header::before {
+                content: "";
+                position: absolute;
+                width: 240px;
+                height: 240px;
+                top: -160px;
+                right: -80px;
+                border-radius: 50%;
+                background: radial-gradient(
+                  circle,
+                  rgba(83, 169, 119, 0.18),
+                  transparent 70%
+                );
+                pointer-events: none;
+              }
+
+              #header .header-content {
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 18px;
+                padding: 22px 25px 20px;
+              }
+
+              #header .doctor-info {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                min-width: 0;
+              }
+
+              #header .doctor-avatar {
+                width: 76px;
+                height: 76px;
+                flex-shrink: 0;
+                border-radius: 17px;
+                padding: 3px;
+                background: linear-gradient(135deg, #e5d09a, #618d70);
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+              }
+
+              #header .doctor-avatar img {
+                width: 100%;
+                height: 100%;
+                display: block;
+                object-fit: cover;
+                object-position: center 20%;
+                border-radius: 14px;
+              }
+
+              #header .doctor-details {
+                min-width: 0;
+              }
+
+              #header .doctor-details h3 {
+                margin: 0 0 6px;
+                color: #fff;
+                font-size: 20px;
+                font-weight: 750;
+                line-height: 1.25;
+                letter-spacing: -0.4px;
+              }
+
+              #header .doctor-specialization {
+                color: #b8d1c4;
+                font-size: 13px;
+                line-height: 1.4;
+              }
+
+              #header .doctor-verified {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                margin-top: 9px;
+                color: #e1c27d;
+                font-size: 11px;
+                font-weight: 600;
+              }
+
+              #header .doctor-verified img {
+                width: 16px;
+                height: 16px;
+                object-fit: contain;
+              }
+
+              #header .consultation-badge {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 11px 15px;
+                border: 1px solid rgba(225, 194, 125, 0.45);
+                border-radius: 30px;
+                background: rgba(225, 194, 125, 0.1);
+                color: #f0d798;
+                font-size: 11px;
+                font-weight: 700;
+                text-align: center;
+                white-space: nowrap;
+                letter-spacing: 0.2px;
+              }
+
+              #header .doctor-stats {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 10px;
+                padding: 0 25px 20px;
+              }
+
+              #header .doctor-stat {
+                position: relative;
+                min-width: 0;
+                padding: 15px 10px;
+                text-align: center;
+                background: rgba(255, 255, 255, 0.055);
+                border: 1px solid rgba(193, 226, 204, 0.13);
+                border-radius: 12px;
+                transition: background 0.2s ease;
+              }
+
+              #header .doctor-stat:hover {
+                background: rgba(255, 255, 255, 0.09);
+              }
+
+              #header .doctor-stat-value {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                color: #f1d795;
+                font-size: 19px;
+                font-weight: 800;
+                line-height: 1.2;
+                white-space: nowrap;
+              }
+
+              #header .stat-star {
+                color: #e9bd5f;
+                font-size: 20px;
+              }
+
+              #header .doctor-stat-label {
+                margin-top: 6px;
+                color: #a9c8b9;
+                font-size: 11px;
+                font-weight: 500;
+              }
+
+              #header .header-status {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                padding: 13px 25px;
+                background: rgba(0, 0, 0, 0.16);
+                border-top: 1px solid rgba(255, 255, 255, 0.09);
+              }
+
+              #header .online-status {
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                min-width: 0;
+              }
+
+              #header .online-indicator {
+                position: relative;
+                width: 9px;
+                height: 9px;
+                flex-shrink: 0;
+                border-radius: 50%;
+                background: #55d998;
+                box-shadow: 0 0 0 4px rgba(85, 217, 152, 0.12);
+              }
+
+              #header .online-indicator::after {
+                content: "";
+                position: absolute;
+                inset: -4px;
+                border: 1px solid rgba(85, 217, 152, 0.5);
+                border-radius: 50%;
+                animation: headerPulse 2.2s infinite;
+              }
+
+              @keyframes headerPulse {
+                0% {
+                  transform: scale(0.8);
+                  opacity: 0.9;
+                }
+
+                100% {
+                  transform: scale(1.8);
+                  opacity: 0;
+                }
+              }
+
+              #header .online-text {
+                color: #c7e6d3;
+                font-size: 11px;
+                font-weight: 600;
+              }
+
+              #header .header-status-label {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                color: #a6bdb1;
+                font-size: 11px;
+                white-space: nowrap;
+              }
+
+              #header .header-toggle {
+                display: grid;
+                place-items: center;
+                width: 29px;
+                height: 29px;
+                padding: 0;
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                border-radius: 8px;
+                background: rgba(255, 255, 255, 0.06);
+                color: #e1c27d;
+                font-size: 20px;
+                cursor: pointer;
+                transition: background 0.2s;
+              }
+
+              #header .header-toggle:hover {
+                background: rgba(255, 255, 255, 0.13);
+              }
+
+              #header .toggle-expand {
+                display: none;
+              }
+
+              #header.header.is-collapsed .doctor-stats,
+              #header.header.is-collapsed .online-status {
+                display: none;
+              }
+
+              #header.header.is-collapsed .toggle-collapse {
+                display: none;
+              }
+
+              #header.header.is-collapsed .toggle-expand {
+                display: inline;
+              }
+
+              @media (max-width: 600px) {
+                #header.header {
+                  border-radius: 12px;
+                }
+
+                #header .header-content {
+                  padding: 14px 13px;
+                  gap: 8px;
+                }
+
+                #header .doctor-info {
+                  gap: 9px;
+                }
+
+                #header .doctor-avatar {
+                  width: 52px;
+                  height: 52px;
+                  border-radius: 12px;
+                  padding: 2px;
+                }
+
+                #header .doctor-avatar img {
+                  border-radius: 10px;
+                }
+
+                #header .doctor-details h3 {
+                  font-size: 13px;
+                  margin-bottom: 3px;
+                  letter-spacing: -0.2px;
+                }
+
+                #header .doctor-specialization {
+                  font-size: 10px;
+                }
+
+                #header .doctor-verified {
+                  font-size: 9px;
+                  gap: 4px;
+                  margin-top: 5px;
+                }
+
+                #header .doctor-verified img {
+                  width: 12px;
+                  height: 12px;
+                }
+
+                #header .consultation-badge {
+                  padding: 7px 9px;
+                  border-radius: 9px;
+                  font-size: 9px;
+                  white-space: normal;
+                  max-width: 105px;
+                  line-height: 1.3;
+                }
+
+                #header .doctor-stats {
+                  gap: 6px;
+                  padding: 0 12px 12px;
+                }
+
+                #header .doctor-stat {
+                  padding: 10px 4px;
+                  border-radius: 9px;
+                }
+
+                #header .doctor-stat-value {
+                  font-size: 14px;
+                  gap: 3px;
+                }
+
+                #header .stat-star {
+                  font-size: 15px;
+                }
+
+                #header .doctor-stat-label {
+                  font-size: 9px;
+                  margin-top: 4px;
+                }
+
+                #header .header-status {
+                  padding: 10px 12px;
+                  gap: 6px;
+                }
+
+                #header .online-text,
+                #header .header-status-label {
+                  font-size: 9px;
+                }
+
+                #header .header-toggle {
+                  width: 25px;
+                  height: 25px;
+                  font-size: 18px;
+                }
+              }
+
+              @media (max-width: 360px) {
+                #header .doctor-avatar {
+                  width: 44px;
+                  height: 44px;
+                }
+
+                #header .doctor-details h3 {
+                  font-size: 12px;
+                }
+
+                #header .consultation-badge {
+                  max-width: 85px;
+                  font-size: 8px;
+                }
+
+                #header .header-status-label {
+                  font-size: 0;
+                }
+              }
+
+              @media (prefers-reduced-motion: reduce) {
+                #header .online-indicator::after {
+                  animation: none;
+                }
+              }
+            </style>
+            <header class="header" id="header">
+              <div class="header-content">
+                <div class="doctor-info">
+                  <div class="doctor-avatar">
+                    <img
+                      src=""
+                      alt="Lek. Katarzyna Popowicz"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <div class="doctor-details">
+                    <h3>Lek. Katarzyna Popowicz</h3>
+
+                    <div class="doctor-specialization">
+                      Specjalista flebologii
+                    </div>
+
+                    <div class="doctor-verified">
+                      <img
+                        src=""
+                        width="16"
+                        height="16"
+                        alt=""
+                        aria-hidden="true"/>
+                      <span>Zweryfikowany specjalista</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="consultation-badge">Bezpłatna konsultacja</div>
+              </div>
+
+              <div class="doctor-stats" id="doctorStats">
+                <div class="doctor-stat">
+                  <div class="doctor-stat-value">
+                    <span class="stat-star">★</span>
+                    4.9/5
+                  </div>
+                  <div class="doctor-stat-label">Ocena</div>
+                </div>
+
+                <div class="doctor-stat">
+                  <div class="doctor-stat-value">2 500+</div>
+                  <div class="doctor-stat-label">Konsultacji</div>
+                </div>
+
+                <div class="doctor-stat">
+                  <div class="doctor-stat-value">15 lat</div>
+                  <div class="doctor-stat-label">Doświadczenia</div>
+                </div>
+              </div>
+
+              <div class="header-status">
+                <div class="online-status" id="onlineStatus">
+                  <div class="online-indicator"></div>
+                  <span class="online-text">Asystent konsultacji aktywny</span>
+                </div>
+
+                <div class="header-status-label">
+                  Konsultacja online
+                  <button
+                    class="header-toggle"
+                    id="headerToggle"
+                    type="button"
+                    aria-expanded="true"
+                    aria-controls="doctorStats onlineStatus"
+                  >
+                    <span class="toggle-collapse" aria-label="Zwiń"
+                      ><span aria-hidden="true">⌃</span></span
+                    ><span class="toggle-expand" aria-label="Rozwiń"
+                      ><span aria-hidden="true">⌄</span></span
+                    >
+                  </button>
+                </div>
+              </div>
+            </header>
+          </section>
+        </div>
+
+        <div class="navigation">
+          <button class="arrow" id="prev" type="button">‹</button>
+
+          <div class="header-info">
+            <strong id="headerName">Clinical Clean</strong>
+            <span>Натисни на текст, щоб змінити</span>
+          </div>
+
+          <button class="arrow" id="next" type="button">›</button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="editCode">Редагувати код</button>
+        <button class="btn" id="copyCode">Копіювати секцію</button>
+        <button class="btn primary" id="download">↓ Скачати хедер</button>
+      </div>
+
+      <div class="editor" id="editor">
+        <div class="editor-top">
+          <strong>HTML + CSS</strong>
+          <span id="fileName">header-clinical.html</span>
+        </div>
+
+        <textarea id="codeInput" spellcheck="false"></textarea>
+
+        <div class="editor-bottom">
+          <button class="btn primary" id="applyCode">Застосувати зміни</button>
+        </div>
+      </div>
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
